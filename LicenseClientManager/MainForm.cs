@@ -84,5 +84,11 @@ namespace LicenseClientManager
         {
 
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            string rtf = Resources.terms_and_conditions_template;
+            termsConditionsBox.Rtf = rtf;
+        }
     }
 }
