@@ -5,9 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LicenseClientManager.Helpers
@@ -90,16 +87,10 @@ namespace LicenseClientManager.Helpers
 
         public static Dictionary<string, string> GetArguments(string commandLine)
         {
-            if (commandLine.Contains(" open "))
-                commandLine = commandLine.Replace(" open ", " /open ");
+            //if (commandLine.Contains(" open "))
+            //    commandLine = commandLine.Replace(" open ", " /open ");
  
-           List<string> arguments = commandLine.Split('/').ToList();
-            if (arguments.Count > 0)
-            {
-                if (!arguments[0].StartsWith("open"))
-                    arguments.RemoveAt(0);
-            }
-
+            List<string> arguments = commandLine.Split('/').ToList();
             Dictionary<string, string> argumentPair = GetArgumentPair(arguments);
 
             arguments = null;

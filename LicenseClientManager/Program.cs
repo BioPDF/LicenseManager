@@ -20,7 +20,6 @@ namespace LicenseClientManager
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                //Application.Run(new MainForm());
                 SingleInstanceController controller = new SingleInstanceController();
                 controller.Run(args);
             }
@@ -43,11 +42,10 @@ namespace LicenseClientManager
             {
                 ProgramHelper.RevertToSelf();
                 MainForm form = MainForm as MainForm;
-                form.ProcessArguments(e.CommandLine.ToArray(), false);
+                form.ProcessArguments(e.CommandLine.ToArray());
             }
             protected override void OnCreateMainForm()
             {
-                //ValidateSystemSettings();
                 MainForm = new MainForm();
             }
         }

@@ -117,6 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="offlineActivationKeyTextbox.Text" xml:space="preserve">
+    <value>--pdf-printer-activation-key-begin--
+"Q+Dn9hnyntzCnrWfWZekzQzrpeb7z7iJWZekscufWZfA8g/jWev9ARC8W7zT"
+"v+7nq+bx9s2fr9z2BBTup7SmwuKtaZmkwOmMQ5ekscu7aNjw/Rr2d4SOscuf"
+"WbPzAw/kq8Dy9xqfndj49uihbKa5wN2vaqumsR70m7z8ARTxnurFBeihbKa5"
+"wN2vaq6msSHkq+rtABm8W6mmsdq9RoGkscufdert+Bngrez29unDn6fKAfzP"
+"jM3s5gHIkuPM1g3Aa6bVzui7aOrt+Bngrez29umMQ7Oz/RTinuX39umMQ3Xj"
+"7fQQ7azcwp61n1mXpM0X6Jzc8gQQyJ21ucrjsnGvusndsHWm8PoO5Kfq6doP"
+"vUaBpLHLn3Xj7fQQ7azc6c/nrqU="
+--pdf-printer-activation-key-end--</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

@@ -1,12 +1,6 @@
 ﻿using LicenseClientManager.Helpers;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LicenseClientManager
@@ -20,10 +14,12 @@ namespace LicenseClientManager
             InitializeComponent();
         }
 
-        public void ProcessArguments(string[] args, bool ignoreShift)
+        public void ProcessArguments(string[] args)
         {
             string commandLineString = string.Join(" ", args);
             argumentDictionary = ProgramHelper.GetArguments(commandLineString);
+
+            ValidateArguments();
 
             try
             {
@@ -34,6 +30,27 @@ namespace LicenseClientManager
                 MessageBox.Show(ex.Message, $"{Application.ProductName} - Error occurred (process)", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             argumentDictionary = null;
+        }
+
+        private void ValidateArguments()
+        {
+            if (argumentDictionary.Count < 2)
+            {
+                MessageBox.Show("No parameters supplied for acivation. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit((int)ExitCode.NoParameters);
+            }
+            if (!argumentDictionary.ContainsKey("action"))
+            {
+                MessageBox.Show("Action parameter missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit((int)ExitCode.InvalidParameters);
+            }
+            if (!argumentDictionary.ContainsKey("version"))
+            {
+                MessageBox.Show("Version information missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit((int)ExitCode.InvalidParameters);
+            }
+
+            argumentDictionary.Add("machinename", Environment.MachineName);
         }
 
         internal void Open()
@@ -87,8 +104,14 @@ namespace LicenseClientManager
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            ProcessArguments(Environment.GetCommandLineArgs());
+
             string rtf = Resources.terms_and_conditions_template;
             termsConditionsBox.Rtf = rtf;
+
+            activationKeyTextbox.Text = RegistryHelper.GetActivationKeyFromRegistryIfPresent();
+            activationKeyTextbox.Enabled = string.IsNullOrEmpty(activationKeyTextbox.Text);
+            licenseActivationOfflineTab.Enabled = string.IsNullOrEmpty(activationKeyTextbox.Text);
         }
     }
 }
