@@ -113,5 +113,44 @@ namespace LicenseClientManager
             activationKeyTextbox.Enabled = string.IsNullOrEmpty(activationKeyTextbox.Text);
             licenseActivationOfflineTab.Enabled = string.IsNullOrEmpty(activationKeyTextbox.Text);
         }
+
+        private void offlineActivationButton_Click(object sender, EventArgs e)
+        {
+            if (ValidActivationCode())
+            {
+                licenseActivationTabControl.SelectedTab = licenseActivationOfflineTab;
+            }
+            else
+            {
+                licenseActivationTabControl.SelectedTab = licenseActivationOnlineTab;
+            }
+        }
+
+        private bool ValidActivationCode()
+        {
+            if (string.IsNullOrEmpty(activationKeyTextbox.Text))
+            {
+                MessageBox.Show("Enter a valid activation code", "Activation Code Required", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                activationKeyTextbox.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private void licenseActivationTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void licenseActivationTabControl_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (e.TabPage == licenseActivationOfflineTab)
+            {
+                if (!ValidActivationCode())
+                {
+                    licenseActivationTabControl.SelectedTab = licenseActivationOnlineTab;
+                }
+            }
+        }
     }
 }
