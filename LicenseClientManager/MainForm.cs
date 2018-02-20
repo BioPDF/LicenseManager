@@ -1,6 +1,7 @@
 ﻿using LicenseClientManager.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LicenseClientManager
@@ -8,6 +9,7 @@ namespace LicenseClientManager
     public partial class MainForm : Form
     {
         static Dictionary<string, string> argumentDictionary;
+        const string secret = "21A421B6-AA97-40AE-985E-9DED2BA8224F";
 
         public MainForm()
         {
@@ -29,7 +31,7 @@ namespace LicenseClientManager
             {
                 MessageBox.Show(ex.Message, $"{Application.ProductName} - Error occurred (process)", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            argumentDictionary = null;
+            //argumentDictionary = null;
         }
 
         private void ValidateArguments()
@@ -69,7 +71,7 @@ namespace LicenseClientManager
         {
             if (!AcceptTermsConditionsCheckbox.Checked)
             {
-                MessageBox.Show("You must accept the terms & conditions as stated in this form to be able to continue.", "Accept Terms & Conditions", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("You must accept the Terms and Conditions as stated in this form to be able to continue.", "Accept Terms & Conditions", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -118,12 +120,69 @@ namespace LicenseClientManager
         {
             if (ValidActivationCode())
             {
+                offlineActivationKeyTextbox.Text = GetActivationKey();
                 licenseActivationTabControl.SelectedTab = licenseActivationOfflineTab;
             }
             else
             {
                 licenseActivationTabControl.SelectedTab = licenseActivationOnlineTab;
             }
+        }
+
+        private string GetActivationKey()
+        {
+            string machineName = "";
+            string version = "";
+            string keyHeader = "--pdf-printer-activation-key-begin--";
+            string keyFooter = "--pdf-printer-activation-key-end--";
+            string base64Key = "";
+            string filler = "{35A7F82B-7DB4-48B7-AC57-A28CB4C5BDFD}{CB5306EF-9FB1-4F85-8037-EDDB3B6AEDFA}{AA03A518-E19F-4DE8-AEF7-6D04E4A909A3}";
+            try
+            {
+                string activationCode = activationKeyTextbox.Text;
+                machineName = argumentDictionary["machinename"];
+                version = argumentDictionary["version"];
+                keyHeader = "--pdf-printer-activation-key-begin--";
+                keyFooter = "--pdf-printer-activation-key-end--";
+                base64Key = GetBase64Key(activationCode, machineName, version, filler);
+
+                //--pdf-printer-activation-key-begin--
+                //"Q+Dn9hnyntzCnrWfWZekzQzrpeb7z7iJWZekscufWZfA8g/jWev9ARC8W7zT"
+                //"v+7nq+bx9s2fr9z2BBTup7SmwuKtaZmkwOmMQ5ekscu7aNjw/Rr2d4SOscuf"
+                //"WbPzAw/kq8Dy9xqfndj49uihbKa5wN2vaqumsR70m7z8ARTxnurFBeihbKa5"
+                //"wN2vaq6msSHkq+rtABm8W6mmsdq9RoGkscufdert+Bngrez29unDn6fKAfzP"
+                //"jM3s5gHIkuPM1g3Aa6bVzui7aOrt+Bngrez29umMQ7Oz/RTinuX39umMQ3Xj"
+                //"7fQQ7azcwp61n1mXpM0X6Jzc8gQQyJ21ucrjsnGvusndsHWm8PoO5Kfq6doP"
+                //"vUaBpLHLn3Xj7fQQ7azc6c/nrqU="
+                //--pdf-printer-activation-key-end--
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return keyHeader + Environment.NewLine + base64Key + keyFooter;
+        }
+
+        private string GetBase64Key(string activationCode, string machineName, string version, string filler)
+        {
+            string base64Key = Base64Encode($"{activationCode};{machineName};{version};{filler}");
+            string base64KeyFormatted = FormatKeyString(base64Key, 60);
+            return base64KeyFormatted;
+        }
+
+        private string FormatKeyString(string base64Key, int chunkSize)
+        {
+            IEnumerable<string> chunks = Enumerable.Range(0, base64Key.Length / chunkSize)
+                    .Select(i => base64Key.Substring(i * chunkSize, chunkSize));
+
+            string formattedKey = "";
+            foreach (string item in chunks)
+            {
+                formattedKey += item + Environment.NewLine;
+            }
+
+            return formattedKey;
         }
 
         private bool ValidActivationCode()
@@ -151,6 +210,18 @@ namespace LicenseClientManager
                     licenseActivationTabControl.SelectedTab = licenseActivationOnlineTab;
                 }
             }
+        }
+
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
     }
 }

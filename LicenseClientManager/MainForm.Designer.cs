@@ -105,8 +105,8 @@
             // guideTabControl
             // 
             this.guideTabControl.Appearance = System.Windows.Forms.TabAppearance.Buttons;
-            this.guideTabControl.Controls.Add(this.licensingTab);
             this.guideTabControl.Controls.Add(this.termsConditionsTab);
+            this.guideTabControl.Controls.Add(this.licensingTab);
             this.guideTabControl.Location = new System.Drawing.Point(12, 46);
             this.guideTabControl.Name = "guideTabControl";
             this.guideTabControl.SelectedIndex = 0;
@@ -330,10 +330,10 @@
             this.termsConditionsTab.Controls.Add(this.termsConditionsBox);
             this.termsConditionsTab.Controls.Add(this.AcceptTermsConditionsCheckbox);
             this.termsConditionsTab.Controls.Add(this.label1);
-            this.termsConditionsTab.Location = new System.Drawing.Point(4, 25);
+            this.termsConditionsTab.Location = new System.Drawing.Point(4, 27);
             this.termsConditionsTab.Name = "termsConditionsTab";
             this.termsConditionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.termsConditionsTab.Size = new System.Drawing.Size(722, 466);
+            this.termsConditionsTab.Size = new System.Drawing.Size(722, 464);
             this.termsConditionsTab.TabIndex = 0;
             // 
             // termsConditionsBox
