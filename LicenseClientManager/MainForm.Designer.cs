@@ -33,9 +33,15 @@
             this.titelLabel = new System.Windows.Forms.Label();
             this.topPanel = new System.Windows.Forms.Panel();
             this.guideTabControl = new System.Windows.Forms.TabControl();
+            this.termsConditionsTab = new System.Windows.Forms.TabPage();
+            this.termsConditionsBox = new System.Windows.Forms.RichTextBox();
+            this.AcceptTermsConditionsCheckbox = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.licensingTab = new System.Windows.Forms.TabPage();
             this.licenseActivationTabControl = new System.Windows.Forms.TabControl();
             this.licenseActivationOnlineTab = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.offlineActivationButton = new System.Windows.Forms.Button();
             this.onlineActivationButton = new System.Windows.Forms.Button();
             this.activationKeyTextbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -53,23 +59,17 @@
             this.offlineActivationKeyTextbox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.licenseActivationLabel = new System.Windows.Forms.Label();
-            this.termsConditionsTab = new System.Windows.Forms.TabPage();
-            this.termsConditionsBox = new System.Windows.Forms.RichTextBox();
-            this.AcceptTermsConditionsCheckbox = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.previousButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
             this.blindPanel = new System.Windows.Forms.Panel();
-            this.offlineActivationButton = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.topPanel.SuspendLayout();
             this.guideTabControl.SuspendLayout();
+            this.termsConditionsTab.SuspendLayout();
             this.licensingTab.SuspendLayout();
             this.licenseActivationTabControl.SuspendLayout();
             this.licenseActivationOnlineTab.SuspendLayout();
             this.licenseActivationOfflineTab.SuspendLayout();
-            this.termsConditionsTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // logo
@@ -113,6 +113,48 @@
             this.guideTabControl.Size = new System.Drawing.Size(730, 495);
             this.guideTabControl.TabIndex = 3;
             // 
+            // termsConditionsTab
+            // 
+            this.termsConditionsTab.BackColor = System.Drawing.SystemColors.Control;
+            this.termsConditionsTab.Controls.Add(this.termsConditionsBox);
+            this.termsConditionsTab.Controls.Add(this.AcceptTermsConditionsCheckbox);
+            this.termsConditionsTab.Controls.Add(this.label1);
+            this.termsConditionsTab.Location = new System.Drawing.Point(4, 27);
+            this.termsConditionsTab.Name = "termsConditionsTab";
+            this.termsConditionsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.termsConditionsTab.Size = new System.Drawing.Size(722, 464);
+            this.termsConditionsTab.TabIndex = 0;
+            // 
+            // termsConditionsBox
+            // 
+            this.termsConditionsBox.Location = new System.Drawing.Point(19, 49);
+            this.termsConditionsBox.Name = "termsConditionsBox";
+            this.termsConditionsBox.ReadOnly = true;
+            this.termsConditionsBox.Size = new System.Drawing.Size(685, 368);
+            this.termsConditionsBox.TabIndex = 3;
+            this.termsConditionsBox.Text = "";
+            // 
+            // AcceptTermsConditionsCheckbox
+            // 
+            this.AcceptTermsConditionsCheckbox.AutoSize = true;
+            this.AcceptTermsConditionsCheckbox.Location = new System.Drawing.Point(18, 434);
+            this.AcceptTermsConditionsCheckbox.Name = "AcceptTermsConditionsCheckbox";
+            this.AcceptTermsConditionsCheckbox.Size = new System.Drawing.Size(202, 19);
+            this.AcceptTermsConditionsCheckbox.TabIndex = 2;
+            this.AcceptTermsConditionsCheckbox.Text = "I accept the terms and conditions";
+            this.AcceptTermsConditionsCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(15, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(139, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Terms && Conditions";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // licensingTab
             // 
             this.licensingTab.Controls.Add(this.licenseActivationTabControl);
@@ -151,6 +193,30 @@
             this.licenseActivationOnlineTab.Text = "Online";
             this.licenseActivationOnlineTab.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(151, 194);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(371, 51);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "or, if this computer is not connected to the Internet, prepare for activation fro" +
+    "m another computer";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // offlineActivationButton
+            // 
+            this.offlineActivationButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.offlineActivationButton.Location = new System.Drawing.Point(209, 248);
+            this.offlineActivationButton.Name = "offlineActivationButton";
+            this.offlineActivationButton.Size = new System.Drawing.Size(257, 35);
+            this.offlineActivationButton.TabIndex = 3;
+            this.offlineActivationButton.Text = "Prepare for Offline Activation";
+            this.offlineActivationButton.UseVisualStyleBackColor = true;
+            this.offlineActivationButton.Click += new System.EventHandler(this.offlineActivationButton_Click);
+            // 
             // onlineActivationButton
             // 
             this.onlineActivationButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -160,6 +226,7 @@
             this.onlineActivationButton.TabIndex = 2;
             this.onlineActivationButton.Text = "Activate Now";
             this.onlineActivationButton.UseVisualStyleBackColor = true;
+            this.onlineActivationButton.Click += new System.EventHandler(this.onlineActivationButton_Click);
             // 
             // activationKeyTextbox
             // 
@@ -191,10 +258,10 @@
             this.licenseActivationOfflineTab.Controls.Add(this.label4);
             this.licenseActivationOfflineTab.Controls.Add(this.offlineActivationKeyTextbox);
             this.licenseActivationOfflineTab.Controls.Add(this.label3);
-            this.licenseActivationOfflineTab.Location = new System.Drawing.Point(4, 24);
+            this.licenseActivationOfflineTab.Location = new System.Drawing.Point(4, 22);
             this.licenseActivationOfflineTab.Name = "licenseActivationOfflineTab";
             this.licenseActivationOfflineTab.Padding = new System.Windows.Forms.Padding(3);
-            this.licenseActivationOfflineTab.Size = new System.Drawing.Size(676, 368);
+            this.licenseActivationOfflineTab.Size = new System.Drawing.Size(676, 370);
             this.licenseActivationOfflineTab.TabIndex = 1;
             this.licenseActivationOfflineTab.Text = "Offline";
             this.licenseActivationOfflineTab.UseVisualStyleBackColor = true;
@@ -324,48 +391,6 @@
             this.licenseActivationLabel.TabIndex = 7;
             this.licenseActivationLabel.Text = "License Activation";
             // 
-            // termsConditionsTab
-            // 
-            this.termsConditionsTab.BackColor = System.Drawing.SystemColors.Control;
-            this.termsConditionsTab.Controls.Add(this.termsConditionsBox);
-            this.termsConditionsTab.Controls.Add(this.AcceptTermsConditionsCheckbox);
-            this.termsConditionsTab.Controls.Add(this.label1);
-            this.termsConditionsTab.Location = new System.Drawing.Point(4, 27);
-            this.termsConditionsTab.Name = "termsConditionsTab";
-            this.termsConditionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.termsConditionsTab.Size = new System.Drawing.Size(722, 464);
-            this.termsConditionsTab.TabIndex = 0;
-            // 
-            // termsConditionsBox
-            // 
-            this.termsConditionsBox.Location = new System.Drawing.Point(19, 49);
-            this.termsConditionsBox.Name = "termsConditionsBox";
-            this.termsConditionsBox.ReadOnly = true;
-            this.termsConditionsBox.Size = new System.Drawing.Size(685, 368);
-            this.termsConditionsBox.TabIndex = 3;
-            this.termsConditionsBox.Text = "";
-            // 
-            // AcceptTermsConditionsCheckbox
-            // 
-            this.AcceptTermsConditionsCheckbox.AutoSize = true;
-            this.AcceptTermsConditionsCheckbox.Location = new System.Drawing.Point(18, 434);
-            this.AcceptTermsConditionsCheckbox.Name = "AcceptTermsConditionsCheckbox";
-            this.AcceptTermsConditionsCheckbox.Size = new System.Drawing.Size(202, 19);
-            this.AcceptTermsConditionsCheckbox.TabIndex = 2;
-            this.AcceptTermsConditionsCheckbox.Text = "I accept the terms and conditions";
-            this.AcceptTermsConditionsCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Terms && Conditions";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
             // previousButton
             // 
             this.previousButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -396,30 +421,6 @@
             this.blindPanel.Size = new System.Drawing.Size(745, 24);
             this.blindPanel.TabIndex = 6;
             // 
-            // offlineActivationButton
-            // 
-            this.offlineActivationButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.offlineActivationButton.Location = new System.Drawing.Point(209, 248);
-            this.offlineActivationButton.Name = "offlineActivationButton";
-            this.offlineActivationButton.Size = new System.Drawing.Size(257, 35);
-            this.offlineActivationButton.TabIndex = 3;
-            this.offlineActivationButton.Text = "Prepare for Offline Activation";
-            this.offlineActivationButton.UseVisualStyleBackColor = true;
-            this.offlineActivationButton.Click += new System.EventHandler(this.offlineActivationButton_Click);
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(151, 194);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(371, 51);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "or, if this computer is not connected to the Internet, prepare for activation fro" +
-    "m another computer";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -441,6 +442,8 @@
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
             this.guideTabControl.ResumeLayout(false);
+            this.termsConditionsTab.ResumeLayout(false);
+            this.termsConditionsTab.PerformLayout();
             this.licensingTab.ResumeLayout(false);
             this.licensingTab.PerformLayout();
             this.licenseActivationTabControl.ResumeLayout(false);
@@ -448,8 +451,6 @@
             this.licenseActivationOnlineTab.PerformLayout();
             this.licenseActivationOfflineTab.ResumeLayout(false);
             this.licenseActivationOfflineTab.PerformLayout();
-            this.termsConditionsTab.ResumeLayout(false);
-            this.termsConditionsTab.PerformLayout();
             this.ResumeLayout(false);
 
         }

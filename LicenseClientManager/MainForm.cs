@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using LicenseClientManager.Helpers;
 
 namespace LicenseClientManager
 {
@@ -166,7 +167,7 @@ namespace LicenseClientManager
 
         private string GetBase64Key(string activationCode, string machineName, string version, string filler)
         {
-            string base64Key = Base64Encode($"{activationCode};{machineName};{version};{filler}");
+            string base64Key = WebHelper.Base64Encode($"{activationCode};{machineName};{version};{filler}");
             string base64KeyFormatted = FormatKeyString(base64Key, 60);
             return base64KeyFormatted;
         }
@@ -212,16 +213,31 @@ namespace LicenseClientManager
             }
         }
 
-        public static string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
-        }
+        //public static string Base64Encode(string plainText)
+        //{
+        //    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+        //    return System.Convert.ToBase64String(plainTextBytes);
+        //}
 
-        public static string Base64Decode(string base64EncodedData)
+        //public static string Base64Decode(string base64EncodedData)
+        //{
+        //    var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+        //    return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        //}
+
+        private void onlineActivationButton_Click(object sender, EventArgs e)
         {
-            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            //string test = WebHelper.TestEncoding("abc");
+
+            string result = WebHelper.PostData("");
+            if (result == "license;secret")
+            {
+                MessageBox.Show(result, "Post Data Result");
+            }
+            else
+            {
+                MessageBox.Show(result, "Post Data Result");
+            }
         }
     }
 }
