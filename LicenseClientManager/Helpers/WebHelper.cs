@@ -11,18 +11,20 @@ namespace LicenseClientManager.Helpers
     static class WebHelper
     {
         static string url = "http://licman.codepower.biz";
+        //static string url = "http://localhost:54925/";
         public static string PostData(string data)
         {
             try
             {
-                string jsonToSend = GetData();
+                string jsonToSend = "=" + GetData(data);
                 string encodedData = Base64Encode(jsonToSend);
 
                 RestClient client = new RestClient(url);
 
                 var request = new RestRequest(Method.POST);
-                request.Resource = "api/values";
-                
+                request.Resource = "api/values?value=" + encodedData;
+                request.AddParameter("application/json", encodedData, ParameterType.RequestBody);
+
                 request.AddBody(encodedData);
 
                 IRestResponse response = client.Execute(request);
@@ -30,7 +32,7 @@ namespace LicenseClientManager.Helpers
                 {
                     // OK
                     string result =  response.Content.ToString();
-                    string decodedResult = Base64Decode(result.Replace("\"", ""));
+                    string decodedResult = result; // Base64Decode(result.Replace("\"", ""));
                     return decodedResult;
                 }
                 else
@@ -53,11 +55,11 @@ namespace LicenseClientManager.Helpers
             return decodedData;
         }
 
-        static string GetData()
+        static string GetData(string activationCode)
         {
             Dictionary<string, string> ClientData = new Dictionary<string, string>
             {
-                {"ActivationCode", "xxx" },
+                {"ActivationCode", activationCode },
                 {"Version", "1.23"}
             };
 

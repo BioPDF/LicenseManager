@@ -37,21 +37,21 @@ namespace LicenseClientManager
 
         private void ValidateArguments()
         {
-            if (argumentDictionary.Count < 2)
-            {
-                MessageBox.Show("No parameters supplied for acivation. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit((int)ExitCode.NoParameters);
-            }
-            if (!argumentDictionary.ContainsKey("action"))
-            {
-                MessageBox.Show("Action parameter missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit((int)ExitCode.InvalidParameters);
-            }
-            if (!argumentDictionary.ContainsKey("version"))
-            {
-                MessageBox.Show("Version information missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit((int)ExitCode.InvalidParameters);
-            }
+            //if (argumentDictionary.Count < 2)
+            //{
+            //    MessageBox.Show("No parameters supplied for acivation. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    Environment.Exit((int)ExitCode.NoParameters);
+            //}
+            //if (!argumentDictionary.ContainsKey("action"))
+            //{
+            //    MessageBox.Show("Action parameter missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    Environment.Exit((int)ExitCode.InvalidParameters);
+            //}
+            //if (!argumentDictionary.ContainsKey("version"))
+            //{
+            //    MessageBox.Show("Version information missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    Environment.Exit((int)ExitCode.InvalidParameters);
+            //}
 
             argumentDictionary.Add("machinename", Environment.MachineName);
         }
@@ -229,10 +229,11 @@ namespace LicenseClientManager
         {
             //string test = WebHelper.TestEncoding("abc");
 
-            string result = WebHelper.PostData("");
-            if (result == "license;secret")
+            string result = WebHelper.PostData(activationKeyTextbox.Text);
+            if (result.Contains("Thank you"))
             {
                 MessageBox.Show(result, "Post Data Result");
+                Application.Exit();
             }
             else
             {

@@ -8,6 +8,12 @@ using System.Web.Http;
 
 namespace WebApplication1.Controllers
 {
+    public class ProductData
+    {
+        public string ActivationCode { get; set; }
+        public string Version { get; set; }
+    }
+
     public class ValuesController : ApiController
     {
         // GET api/values
@@ -23,20 +29,24 @@ namespace WebApplication1.Controllers
         }
 
         // POST api/values
-        public string Post([FromBody]string value)
+        public HttpResponseMessage Post(string value)
         {
-            //string decodedValue = Base64Decode(value);
+            //string xxx = request.Content.ReadAsStringAsync().Result;
+
+            string decodedValue = Base64Decode(value);
             string data = "";
-            //if (decodedValue.Contains("BF214968-A5F3-4CA0-9B14-6D37F141028A"))
-            //{
+            if (decodedValue.Contains("BF214968-A5F3-4CA0-9B14-6D37F141028A"))
+            {
                 data = "Thank you - your product has now been licensed";
-            //}
-            //else
-            //{
-            //    data = "The supplied activation code could not be found in our system";
-            //}
-            string encodedData = Base64Encode(data);
-            return encodedData;
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            else
+            {
+                data = "The supplied activation code could not be found in our system";
+                return Request.CreateResponse(HttpStatusCode.NotFound, data);
+            }
+            //string encodedData = Base64Encode(data);
+            //return encodedData;
         }
 
         // PUT api/values/5
