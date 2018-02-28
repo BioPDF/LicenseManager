@@ -6,11 +6,13 @@
 }
 <h2>@ViewBag.Title</h2>
 
-<div style=" margin: 0px 100px 0px 100px; ">
+<div style="margin: 0px 100px 100px 100px;">
     @Html.Label("Terms and Conditions:")
-    <div style="overflow-y: scroll; border: solid; border-bottom-width: thin; max-height: 400px">
+    <div style="overflow-y: scroll; border: inset; border-bottom-width: thin; border-color: lightgray; max-height: 400px">
         @Html.Raw(terms)
     </div>
-    @Html.CheckBox("Accept the Terms and Conditions")
-    <a class="btn btn-default pull-right" href="#">Continue &raquo;</a>
+    @Html.CheckBox("Accept the Terms and Conditions") Accept the Terms and Conditions
+    <p>
+        <a class="btn btn-primary pull-right" href="#">Continue &raquo;</a>
+    </p>
 </div>
