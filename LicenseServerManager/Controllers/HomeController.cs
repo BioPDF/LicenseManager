@@ -13,9 +13,9 @@ namespace LicenseServerManager.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Licensing()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Licensing.";
 
             return View();
         }

@@ -232,12 +232,12 @@ namespace LicenseClientManager
             string result = WebHelper.PostData(activationKeyTextbox.Text);
             if (result.Contains("Thank you"))
             {
-                MessageBox.Show(result, "Post Data Result");
+                MessageBox.Show("Thank you, the product is now licensed.", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Exit();
             }
             else
             {
-                MessageBox.Show(result, "Post Data Result");
+                MessageBox.Show("The activation key is not known in our database. Please provide a valide license key at try again.", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
     }

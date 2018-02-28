@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Licensing";
+    string terms = "<h2>hello</h2>";
+    string file = Server.MapPath("~/content/documents/terms-and-conditions-template.htm");
+    terms = System.IO.File.ReadAllText(file);
+}
+<h2>@ViewBag.Title</h2>
+
+<div style=" margin: 0px 100px 0px 100px; ">
+    @Html.Label("Terms and Conditions:")
+    <div style="overflow-y: scroll; border: solid; border-bottom-width: thin; max-height: 400px">
+        @Html.Raw(terms)
+    </div>
+    @Html.CheckBox("Accept the Terms and Conditions")
+    <a class="btn btn-default pull-right" href="#">Continue &raquo;</a>
+</div>
