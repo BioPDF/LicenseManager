@@ -50,7 +50,7 @@
             this.activationResponseDataTextbox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.webSiteUrl = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.offlineSaveToFileButton = new System.Windows.Forms.Button();
@@ -62,6 +62,7 @@
             this.previousButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
             this.blindPanel = new System.Windows.Forms.Panel();
+            this.topTabBanner = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.topPanel.SuspendLayout();
             this.guideTabControl.SuspendLayout();
@@ -70,6 +71,7 @@
             this.licenseActivationTabControl.SuspendLayout();
             this.licenseActivationOnlineTab.SuspendLayout();
             this.licenseActivationOfflineTab.SuspendLayout();
+            this.topTabBanner.SuspendLayout();
             this.SuspendLayout();
             // 
             // logo
@@ -87,9 +89,9 @@
             this.titelLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titelLabel.Location = new System.Drawing.Point(65, 16);
             this.titelLabel.Name = "titelLabel";
-            this.titelLabel.Size = new System.Drawing.Size(273, 32);
+            this.titelLabel.Size = new System.Drawing.Size(205, 32);
             this.titelLabel.TabIndex = 1;
-            this.titelLabel.Text = "Bullzip License Manager";
+            this.titelLabel.Text = "<program name>";
             // 
             // topPanel
             // 
@@ -157,8 +159,8 @@
             // 
             // licensingTab
             // 
+            this.licensingTab.Controls.Add(this.topTabBanner);
             this.licensingTab.Controls.Add(this.licenseActivationTabControl);
-            this.licensingTab.Controls.Add(this.licenseActivationLabel);
             this.licensingTab.Location = new System.Drawing.Point(4, 27);
             this.licensingTab.Name = "licensingTab";
             this.licensingTab.Padding = new System.Windows.Forms.Padding(3);
@@ -168,12 +170,13 @@
             // 
             // licenseActivationTabControl
             // 
+            this.licenseActivationTabControl.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.licenseActivationTabControl.Controls.Add(this.licenseActivationOnlineTab);
             this.licenseActivationTabControl.Controls.Add(this.licenseActivationOfflineTab);
-            this.licenseActivationTabControl.Location = new System.Drawing.Point(19, 41);
+            this.licenseActivationTabControl.Location = new System.Drawing.Point(19, 25);
             this.licenseActivationTabControl.Name = "licenseActivationTabControl";
             this.licenseActivationTabControl.SelectedIndex = 0;
-            this.licenseActivationTabControl.Size = new System.Drawing.Size(684, 396);
+            this.licenseActivationTabControl.Size = new System.Drawing.Size(684, 412);
             this.licenseActivationTabControl.TabIndex = 8;
             this.licenseActivationTabControl.SelectedIndexChanged += new System.EventHandler(this.licenseActivationTabControl_SelectedIndexChanged);
             this.licenseActivationTabControl.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.licenseActivationTabControl_Selecting);
@@ -185,10 +188,10 @@
             this.licenseActivationOnlineTab.Controls.Add(this.onlineActivationButton);
             this.licenseActivationOnlineTab.Controls.Add(this.activationKeyTextbox);
             this.licenseActivationOnlineTab.Controls.Add(this.label2);
-            this.licenseActivationOnlineTab.Location = new System.Drawing.Point(4, 24);
+            this.licenseActivationOnlineTab.Location = new System.Drawing.Point(4, 27);
             this.licenseActivationOnlineTab.Name = "licenseActivationOnlineTab";
             this.licenseActivationOnlineTab.Padding = new System.Windows.Forms.Padding(3);
-            this.licenseActivationOnlineTab.Size = new System.Drawing.Size(676, 368);
+            this.licenseActivationOnlineTab.Size = new System.Drawing.Size(676, 381);
             this.licenseActivationOnlineTab.TabIndex = 0;
             this.licenseActivationOnlineTab.Text = "Online";
             this.licenseActivationOnlineTab.UseVisualStyleBackColor = true;
@@ -197,7 +200,7 @@
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(151, 194);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(371, 51);
@@ -230,17 +233,20 @@
             // 
             // activationKeyTextbox
             // 
-            this.activationKeyTextbox.Location = new System.Drawing.Point(21, 42);
+            this.activationKeyTextbox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.activationKeyTextbox.Location = new System.Drawing.Point(21, 46);
             this.activationKeyTextbox.Name = "activationKeyTextbox";
-            this.activationKeyTextbox.Size = new System.Drawing.Size(632, 23);
+            this.activationKeyTextbox.Size = new System.Drawing.Size(632, 29);
             this.activationKeyTextbox.TabIndex = 1;
+            this.activationKeyTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 23);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(18, 20);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(170, 15);
+            this.label2.Size = new System.Drawing.Size(221, 21);
             this.label2.TabIndex = 0;
             this.label2.Text = "Enter or Paste Activation Code:";
             // 
@@ -250,7 +256,7 @@
             this.licenseActivationOfflineTab.Controls.Add(this.activationResponseDataTextbox);
             this.licenseActivationOfflineTab.Controls.Add(this.label8);
             this.licenseActivationOfflineTab.Controls.Add(this.label9);
-            this.licenseActivationOfflineTab.Controls.Add(this.label7);
+            this.licenseActivationOfflineTab.Controls.Add(this.webSiteUrl);
             this.licenseActivationOfflineTab.Controls.Add(this.label5);
             this.licenseActivationOfflineTab.Controls.Add(this.label6);
             this.licenseActivationOfflineTab.Controls.Add(this.offlineSaveToFileButton);
@@ -258,10 +264,10 @@
             this.licenseActivationOfflineTab.Controls.Add(this.label4);
             this.licenseActivationOfflineTab.Controls.Add(this.offlineActivationKeyTextbox);
             this.licenseActivationOfflineTab.Controls.Add(this.label3);
-            this.licenseActivationOfflineTab.Location = new System.Drawing.Point(4, 22);
+            this.licenseActivationOfflineTab.Location = new System.Drawing.Point(4, 27);
             this.licenseActivationOfflineTab.Name = "licenseActivationOfflineTab";
             this.licenseActivationOfflineTab.Padding = new System.Windows.Forms.Padding(3);
-            this.licenseActivationOfflineTab.Size = new System.Drawing.Size(676, 370);
+            this.licenseActivationOfflineTab.Size = new System.Drawing.Size(676, 365);
             this.licenseActivationOfflineTab.TabIndex = 1;
             this.licenseActivationOfflineTab.Text = "Offline";
             this.licenseActivationOfflineTab.UseVisualStyleBackColor = true;
@@ -304,15 +310,15 @@
             this.label9.TabIndex = 12;
             this.label9.Text = "Step 3:";
             // 
-            // label7
+            // webSiteUrl
             // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.Navy;
-            this.label7.Location = new System.Drawing.Point(134, 187);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(196, 15);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "https://www.bullzip.com/activation";
+            this.webSiteUrl.AutoSize = true;
+            this.webSiteUrl.ForeColor = System.Drawing.Color.Navy;
+            this.webSiteUrl.Location = new System.Drawing.Point(134, 187);
+            this.webSiteUrl.Name = "webSiteUrl";
+            this.webSiteUrl.Size = new System.Drawing.Size(196, 15);
+            this.webSiteUrl.TabIndex = 11;
+            this.webSiteUrl.Text = "https://www.bullzip.com/activation";
             // 
             // label5
             // 
@@ -384,10 +390,10 @@
             // licenseActivationLabel
             // 
             this.licenseActivationLabel.AutoSize = true;
-            this.licenseActivationLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.licenseActivationLabel.Location = new System.Drawing.Point(15, 12);
+            this.licenseActivationLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.licenseActivationLabel.Location = new System.Drawing.Point(0, 6);
             this.licenseActivationLabel.Name = "licenseActivationLabel";
-            this.licenseActivationLabel.Size = new System.Drawing.Size(128, 20);
+            this.licenseActivationLabel.Size = new System.Drawing.Size(163, 25);
             this.licenseActivationLabel.TabIndex = 7;
             this.licenseActivationLabel.Text = "License Activation";
             // 
@@ -421,6 +427,14 @@
             this.blindPanel.Size = new System.Drawing.Size(745, 24);
             this.blindPanel.TabIndex = 6;
             // 
+            // topTabBanner
+            // 
+            this.topTabBanner.Controls.Add(this.licenseActivationLabel);
+            this.topTabBanner.Location = new System.Drawing.Point(19, 14);
+            this.topTabBanner.Name = "topTabBanner";
+            this.topTabBanner.Size = new System.Drawing.Size(684, 37);
+            this.topTabBanner.TabIndex = 9;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -436,7 +450,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Bullzip License Manager";
+            this.Text = "<program name>";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.topPanel.ResumeLayout(false);
@@ -445,12 +459,13 @@
             this.termsConditionsTab.ResumeLayout(false);
             this.termsConditionsTab.PerformLayout();
             this.licensingTab.ResumeLayout(false);
-            this.licensingTab.PerformLayout();
             this.licenseActivationTabControl.ResumeLayout(false);
             this.licenseActivationOnlineTab.ResumeLayout(false);
             this.licenseActivationOnlineTab.PerformLayout();
             this.licenseActivationOfflineTab.ResumeLayout(false);
             this.licenseActivationOfflineTab.PerformLayout();
+            this.topTabBanner.ResumeLayout(false);
+            this.topTabBanner.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -477,7 +492,7 @@
         private System.Windows.Forms.Button onlineActivationButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label webSiteUrl;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button offlineSaveToFileButton;
@@ -490,6 +505,7 @@
         private System.Windows.Forms.RichTextBox termsConditionsBox;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button offlineActivationButton;
+        private System.Windows.Forms.Panel topTabBanner;
     }
 }
 

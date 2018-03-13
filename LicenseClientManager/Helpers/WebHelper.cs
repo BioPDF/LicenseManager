@@ -10,14 +10,15 @@ namespace LicenseClientManager.Helpers
 {
     static class WebHelper
     {
-        static string url = "http://licman.codepower.biz";
+        static string url = "";
         //static string url = "http://localhost:54925/";
-        public static string PostData(string data)
+        public static string PostData(string data, string urlString)
         {
             try
             {
                 string jsonToSend = "=" + GetData(data);
                 string encodedData = Base64Encode(jsonToSend);
+                url = $"{urlString}";
 
                 RestClient client = new RestClient(url);
 

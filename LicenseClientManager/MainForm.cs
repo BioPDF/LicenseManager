@@ -24,6 +24,10 @@ namespace LicenseClientManager
 
             ValidateArguments();
 
+            titelLabel.Text = argumentDictionary["programname"];
+            Text = argumentDictionary["programname"];
+            webSiteUrl.Text = argumentDictionary["activationurl"];
+
             try
             {
                 Open();
@@ -37,21 +41,21 @@ namespace LicenseClientManager
 
         private void ValidateArguments()
         {
-            //if (argumentDictionary.Count < 2)
-            //{
-            //    MessageBox.Show("No parameters supplied for acivation. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    Environment.Exit((int)ExitCode.NoParameters);
-            //}
-            //if (!argumentDictionary.ContainsKey("action"))
-            //{
-            //    MessageBox.Show("Action parameter missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    Environment.Exit((int)ExitCode.InvalidParameters);
-            //}
-            //if (!argumentDictionary.ContainsKey("version"))
-            //{
-            //    MessageBox.Show("Version information missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    Environment.Exit((int)ExitCode.InvalidParameters);
-            //}
+            if (argumentDictionary.Count < 2)
+            {
+                MessageBox.Show("No parameters supplied for acivation. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit((int)ExitCode.NoParameters);
+            }
+            if (!argumentDictionary.ContainsKey("action"))
+            {
+                MessageBox.Show("Action parameter missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit((int)ExitCode.InvalidParameters);
+            }
+            if (!argumentDictionary.ContainsKey("version"))
+            {
+                MessageBox.Show("Version information missing. The license manager cannot continue.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit((int)ExitCode.InvalidParameters);
+            }
 
             argumentDictionary.Add("machinename", Environment.MachineName);
         }
@@ -89,14 +93,22 @@ namespace LicenseClientManager
 
         private void previousButton_Click(object sender, EventArgs e)
         {
-            if (guideTabControl.SelectedIndex > 0)
+            if (licenseActivationTabControl.SelectedIndex > 0)
             {
-                guideTabControl.SelectedIndex -= 1;
-                nextButton.Enabled = true;
+                licenseActivationTabControl.SelectedIndex -= 1;
+                previousButton.Enabled = true;
             }
-            if (guideTabControl.SelectedIndex == 0)
+            else
             {
-                previousButton.Enabled = false;
+                if (guideTabControl.SelectedIndex > 0)
+                {
+                    guideTabControl.SelectedIndex -= 1;
+                    nextButton.Enabled = true;
+                }
+                if (guideTabControl.SelectedIndex == 0)
+                {
+                    previousButton.Enabled = false;
+                }
             }
         }
 
@@ -227,17 +239,29 @@ namespace LicenseClientManager
 
         private void onlineActivationButton_Click(object sender, EventArgs e)
         {
-            //string test = WebHelper.TestEncoding("abc");
+            try
+            {
+                Enabled = false;
+                Cursor = Cursors.WaitCursor;
+                string result = WebHelper.PostData(activationKeyTextbox.Text, argumentDictionary["activationurl"]);
+                Cursor = Cursors.Default;
 
-            string result = WebHelper.PostData(activationKeyTextbox.Text);
-            if (result.Contains("Thank you"))
-            {
-                MessageBox.Show("Thank you, the product is now licensed.", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Application.Exit();
+                if (result.Contains("Thank you"))
+                {
+                    MessageBox.Show("Thank you, the product is now licensed.", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Application.Exit();
+                }
+                else
+                {
+                    MessageBox.Show("The activation key is not known in our database. Please provide a valide license key at try again.", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                Enabled = true;
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("The activation key is not known in our database. Please provide a valide license key at try again.", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Cursor = Cursors.Default;
+                MessageBox.Show(ex.Message, "Error occurred", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Enabled = true;
             }
         }
     }
