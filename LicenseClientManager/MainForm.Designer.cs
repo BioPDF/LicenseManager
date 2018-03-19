@@ -38,6 +38,8 @@
             this.AcceptTermsConditionsCheckbox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.licensingTab = new System.Windows.Forms.TabPage();
+            this.topTabBanner = new System.Windows.Forms.Panel();
+            this.licenseActivationLabel = new System.Windows.Forms.Label();
             this.licenseActivationTabControl = new System.Windows.Forms.TabControl();
             this.licenseActivationOnlineTab = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
@@ -58,20 +60,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.offlineActivationKeyTextbox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.licenseActivationLabel = new System.Windows.Forms.Label();
             this.previousButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
             this.blindPanel = new System.Windows.Forms.Panel();
-            this.topTabBanner = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.topPanel.SuspendLayout();
             this.guideTabControl.SuspendLayout();
             this.termsConditionsTab.SuspendLayout();
             this.licensingTab.SuspendLayout();
+            this.topTabBanner.SuspendLayout();
             this.licenseActivationTabControl.SuspendLayout();
             this.licenseActivationOnlineTab.SuspendLayout();
             this.licenseActivationOfflineTab.SuspendLayout();
-            this.topTabBanner.SuspendLayout();
             this.SuspendLayout();
             // 
             // logo
@@ -167,6 +167,24 @@
             this.licensingTab.Size = new System.Drawing.Size(722, 464);
             this.licensingTab.TabIndex = 1;
             this.licensingTab.UseVisualStyleBackColor = true;
+            // 
+            // topTabBanner
+            // 
+            this.topTabBanner.Controls.Add(this.licenseActivationLabel);
+            this.topTabBanner.Location = new System.Drawing.Point(19, 14);
+            this.topTabBanner.Name = "topTabBanner";
+            this.topTabBanner.Size = new System.Drawing.Size(684, 37);
+            this.topTabBanner.TabIndex = 9;
+            // 
+            // licenseActivationLabel
+            // 
+            this.licenseActivationLabel.AutoSize = true;
+            this.licenseActivationLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.licenseActivationLabel.Location = new System.Drawing.Point(0, 6);
+            this.licenseActivationLabel.Name = "licenseActivationLabel";
+            this.licenseActivationLabel.Size = new System.Drawing.Size(163, 25);
+            this.licenseActivationLabel.TabIndex = 7;
+            this.licenseActivationLabel.Text = "License Activation";
             // 
             // licenseActivationTabControl
             // 
@@ -267,7 +285,7 @@
             this.licenseActivationOfflineTab.Location = new System.Drawing.Point(4, 27);
             this.licenseActivationOfflineTab.Name = "licenseActivationOfflineTab";
             this.licenseActivationOfflineTab.Padding = new System.Windows.Forms.Padding(3);
-            this.licenseActivationOfflineTab.Size = new System.Drawing.Size(676, 365);
+            this.licenseActivationOfflineTab.Size = new System.Drawing.Size(676, 381);
             this.licenseActivationOfflineTab.TabIndex = 1;
             this.licenseActivationOfflineTab.Text = "Offline";
             this.licenseActivationOfflineTab.UseVisualStyleBackColor = true;
@@ -347,6 +365,7 @@
             this.offlineSaveToFileButton.TabIndex = 8;
             this.offlineSaveToFileButton.Text = "Save to a File...";
             this.offlineSaveToFileButton.UseVisualStyleBackColor = true;
+            this.offlineSaveToFileButton.Click += new System.EventHandler(this.offlineSaveToFileButton_Click);
             // 
             // offlineCopyToClipboardButton
             // 
@@ -356,6 +375,7 @@
             this.offlineCopyToClipboardButton.TabIndex = 7;
             this.offlineCopyToClipboardButton.Text = "Copy to Clipboard";
             this.offlineCopyToClipboardButton.UseVisualStyleBackColor = true;
+            this.offlineCopyToClipboardButton.Click += new System.EventHandler(this.offlineCopyToClipboardButton_Click);
             // 
             // label4
             // 
@@ -387,16 +407,6 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Step 1:";
             // 
-            // licenseActivationLabel
-            // 
-            this.licenseActivationLabel.AutoSize = true;
-            this.licenseActivationLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.licenseActivationLabel.Location = new System.Drawing.Point(0, 6);
-            this.licenseActivationLabel.Name = "licenseActivationLabel";
-            this.licenseActivationLabel.Size = new System.Drawing.Size(163, 25);
-            this.licenseActivationLabel.TabIndex = 7;
-            this.licenseActivationLabel.Text = "License Activation";
-            // 
             // previousButton
             // 
             this.previousButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -427,14 +437,6 @@
             this.blindPanel.Size = new System.Drawing.Size(745, 24);
             this.blindPanel.TabIndex = 6;
             // 
-            // topTabBanner
-            // 
-            this.topTabBanner.Controls.Add(this.licenseActivationLabel);
-            this.topTabBanner.Location = new System.Drawing.Point(19, 14);
-            this.topTabBanner.Name = "topTabBanner";
-            this.topTabBanner.Size = new System.Drawing.Size(684, 37);
-            this.topTabBanner.TabIndex = 9;
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -459,13 +461,13 @@
             this.termsConditionsTab.ResumeLayout(false);
             this.termsConditionsTab.PerformLayout();
             this.licensingTab.ResumeLayout(false);
+            this.topTabBanner.ResumeLayout(false);
+            this.topTabBanner.PerformLayout();
             this.licenseActivationTabControl.ResumeLayout(false);
             this.licenseActivationOnlineTab.ResumeLayout(false);
             this.licenseActivationOnlineTab.PerformLayout();
             this.licenseActivationOfflineTab.ResumeLayout(false);
             this.licenseActivationOfflineTab.PerformLayout();
-            this.topTabBanner.ResumeLayout(false);
-            this.topTabBanner.PerformLayout();
             this.ResumeLayout(false);
 
         }

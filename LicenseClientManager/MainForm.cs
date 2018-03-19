@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using LicenseClientManager.Helpers;
+using System.IO;
 
 namespace LicenseClientManager
 {
@@ -65,12 +66,12 @@ namespace LicenseClientManager
             if (WindowState == FormWindowState.Minimized || Visible == false)
             {
                 Visible = true;
-                    WindowState = FormWindowState.Normal;
-                    this.TopMost = true;
-                    this.TopMost = false;
-                    this.Focus();
-                }
+                WindowState = FormWindowState.Normal;
+                this.TopMost = true;
+                this.TopMost = false;
+                this.Focus();
             }
+        }
 
         private void nextButton_Click(object sender, EventArgs e)
         {
@@ -262,6 +263,25 @@ namespace LicenseClientManager
                 Cursor = Cursors.Default;
                 MessageBox.Show(ex.Message, "Error occurred", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Enabled = true;
+            }
+        }
+
+        private void offlineCopyToClipboardButton_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(offlineActivationKeyTextbox.Text);
+        }
+
+        private void offlineSaveToFileButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "License info|*.lic";
+            saveFileDialog.Title = "Save License Information";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != "")
+            {
+                File.WriteAllText(saveFileDialog.FileName, offlineActivationKeyTextbox.Text);
+                MessageBox.Show("The file has been saved", "Save License Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
