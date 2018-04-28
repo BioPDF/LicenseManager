@@ -12,7 +12,7 @@ namespace LicenseClientManager.Helpers
     {
         static string url = "";
         //static string url = "http://localhost:54925/";
-        public static KeyValuePair<int, string> PostData(string activationKey, string machineName, string version, string urlString)
+        public static KeyValuePair<HttpStatusCode, string> PostData(string activationKey, string machineName, string version, string urlString)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace LicenseClientManager.Helpers
 
                 IRestResponse response = client.Execute(request);
 
-                return new KeyValuePair<int, string>((int)response.StatusCode, response.Content.ToString());
+                return new KeyValuePair<HttpStatusCode, string>(response.StatusCode, response.Content.ToString());
                 //if (response.StatusCode == HttpStatusCode.OK)
                 //{
                 //    // OK
@@ -47,7 +47,7 @@ namespace LicenseClientManager.Helpers
             }
             catch (Exception ex)
             {
-                return new KeyValuePair<int, string>(404, "The validation failed. Please contact us for help"); ;
+                return new KeyValuePair<HttpStatusCode, string>(HttpStatusCode.ServiceUnavailable, "The validation failed. Please contact us for help"); ;
             }
 
         }

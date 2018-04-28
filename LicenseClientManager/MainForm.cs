@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
+using System.Net;
 
 namespace LicenseClientManager
 {
     public partial class MainForm : Form
     {
         static Dictionary<string, string> argumentDictionary;
-        const string secret = "21A421B6-AA97-40AE-985E-9DED2BA8224F";
+        const string secret = "adf98da6fgd8a98fd7gads8fw"; //"21A421B6-AA97-40AE-985E-9DED2BA8224F";
 
         public MainForm()
         {
@@ -186,12 +187,15 @@ namespace LicenseClientManager
             {
                 Enabled = false;
                 Cursor = Cursors.WaitCursor;
-                KeyValuePair<int, string> result = WebHelper.PostData(activationKeyTextbox.Text, argumentDictionary["machinename"], argumentDictionary["version"], argumentDictionary["activationurl"]);
+                KeyValuePair<HttpStatusCode, string> result = WebHelper.PostData(activationKeyTextbox.Text, argumentDictionary["machinename"], argumentDictionary["version"], argumentDictionary["activationurl"]);
                 Cursor = Cursors.Default;
 
-                if (result.Key == 200)
+                if (result.Key == HttpStatusCode.OK)
                 {
-                    MessageBox.Show(result.Value, "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    File.WriteAllText($"{argumentDictionary["licenselocation"]}\\licensedata.lic", result.Value);
+
+                    MessageBox.Show("Thank you - your product has now been licensed", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Application.Exit();
                 }
                 else
