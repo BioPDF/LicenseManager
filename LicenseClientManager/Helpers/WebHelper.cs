@@ -12,12 +12,12 @@ namespace LicenseClientManager.Helpers
     {
         static string url = "";
         //static string url = "http://localhost:54925/";
-        public static string PostData(string activationKey, string version, string machinename, string urlString)
+        public static KeyValuePair<int, string> PostData(string activationKey, string machineName, string version, string urlString)
         {
             try
             {
                 //string jsonToSend = "=" + GetData(activationKey, version, machinename);
-                string dataToSend = GetActivationKey(activationKey, version, machinename);
+                string dataToSend = GetActivationKey(activationKey, machineName, version);
                 string encodedData = Base64Encode(dataToSend);
                 url = $"{urlString}";
 
@@ -30,22 +30,24 @@ namespace LicenseClientManager.Helpers
                 request.AddBody(encodedData);
 
                 IRestResponse response = client.Execute(request);
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    // OK
-                    string result =  response.Content.ToString();
-                    string decodedResult = result; // Base64Decode(result.Replace("\"", ""));
-                    return decodedResult;
-                }
-                else
-                {
-                    // Not OK
-                    return "response not ok";
-                }
+
+                return new KeyValuePair<int, string>((int)response.StatusCode, response.Content.ToString());
+                //if (response.StatusCode == HttpStatusCode.OK)
+                //{
+                //    // OK
+                //    string result =  response.Content.ToString();
+                //    string decodedResult = result; // Base64Decode(result.Replace("\"", ""));
+                //    return decodedResult;
+                //}
+                //else
+                //{
+                //    // Not OK
+                //    return "response not ok";
+                //}
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                return new KeyValuePair<int, string>(404, "The validation failed. Please contact us for help"); ;
             }
 
         }

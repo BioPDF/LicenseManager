@@ -98,27 +98,30 @@ namespace LicenseClientManager.Helpers
             return argumentPair;
         }
 
-        private static Dictionary<string, string> GetArgumentPair(List<string> arguments)
+        public static Dictionary<string, string> GetArgumentPair(List<string> arguments)
         {
             Dictionary<string, string> argumentPair = new Dictionary<string, string>();
 
+            string key = "";
+            string value = "";
             foreach (var argument in arguments)
             {
-                string key = "";
-                string value = "";
-                if (argument.IndexOf(' ') < 0)
+                if (argument.IndexOf('/') == 0)
                 {
-                    key = argument;
+                    key = argument.Substring(1);
                 }
                 else
                 {
-                    key = argument.Substring(0, argument.IndexOf(' '));
-                    value = argument.Substring(argument.IndexOf(' ') + 1);
+                    //key = argument.Substring(0, argument.IndexOf(' '));
+                    value = argument; //.Substring(argument.IndexOf(' ') + 1);
                     value = value.Trim();
                     value = value.Trim(new char[] { '\r', '\n' });
                     value = value.Trim(new char[] { '\"', '\"' });
+                    if (key.Length > 0)
+                    {
+                        argumentPair.Add(key, value);
+                    }
                 }
-                argumentPair.Add(key, value);
             }
 
             return argumentPair;

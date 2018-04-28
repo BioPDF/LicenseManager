@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using LicenseClientManager.Helpers;
 using System.IO;
 
 namespace LicenseClientManager
@@ -20,8 +19,7 @@ namespace LicenseClientManager
 
         public void ProcessArguments(string[] args)
         {
-            string commandLineString = string.Join(" ", args);
-            argumentDictionary = ProgramHelper.GetArguments(commandLineString);
+            argumentDictionary = ProgramHelper.GetArgumentPair(args.ToList());
 
             ValidateArguments();
 
@@ -188,17 +186,17 @@ namespace LicenseClientManager
             {
                 Enabled = false;
                 Cursor = Cursors.WaitCursor;
-                string result = WebHelper.PostData(activationKeyTextbox.Text, argumentDictionary["version"], argumentDictionary["machinename"], argumentDictionary["activationurl"]);
+                KeyValuePair<int, string> result = WebHelper.PostData(activationKeyTextbox.Text, argumentDictionary["machinename"], argumentDictionary["version"], argumentDictionary["activationurl"]);
                 Cursor = Cursors.Default;
 
-                if (result.Contains("Thank you"))
+                if (result.Key == 200)
                 {
-                    MessageBox.Show("Thank you, the product is now licensed.", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(result.Value, "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Application.Exit();
                 }
                 else
                 {
-                    MessageBox.Show("The activation key is not known in our database. Please provide a valide license key at try again.", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show(result.Value, "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 Enabled = true;
             }

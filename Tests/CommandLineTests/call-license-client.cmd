@@ -1,1 +1,1 @@
-"C:\Users\Claus\Source\Repos\LicenseManager\LicenseClientManager\bin\Debug\LicenseClientManager.exe" /action "activate" /version "1.23"
+"C:\Users\Claus\Source\Repos\LicenseManager\LicenseClientManager\bin\Debug\LicenseClientManager.exe" /action "activate" /version "1.23" /activationurl "http://licman.codepower.biz" /programname "Bullzip License Manager" /licenselocation "c:\temp"

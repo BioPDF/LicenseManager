@@ -32,18 +32,28 @@ namespace WebApplication1.Controllers
         public HttpResponseMessage Post(string value)
         {
             //string xxx = request.Content.ReadAsStringAsync().Result;
+            string keyHeader = "--pdf-printer-activation-key-begin--";
+            string keyFooter = "--pdf-printer-activation-key-end--";
 
             string decodedValue = Base64Decode(value);
+            decodedValue = decodedValue.Replace(keyHeader, "").Replace(keyFooter, "").Replace("\r", "").Replace("\n", "");
+            decodedValue = Base64Decode(decodedValue);
+            string[] parms = decodedValue.Split(';');
+
+            string activationCode = parms[0];
+            string machineName = parms[1];
+            string version = parms[2];
+
             string data = "";
-            if (decodedValue.Contains("BF214968-A5F3-4CA0-9B14-6D37F141028A"))
+            if (activationCode.Equals("BF214968-A5F3-4CA0-9B14-6D37F141028A"))
             {
                 data = "Thank you - your product has now been licensed";
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             else
             {
-                data = "The supplied activation code could not be found in our system";
-                return Request.CreateResponse(HttpStatusCode.NotFound, data);
+                data = "The activation key is not known in our database. Please provide a valide license key at try again.";
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, data);
             }
             //string encodedData = Base64Encode(data);
             //return encodedData;

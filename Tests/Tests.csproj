@@ -51,6 +51,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CommandLineTests\call-license-client - Surface - Debug.cmd" />
+    <None Include="CommandLineTests\call-license-client - Surface.cmd" />
     <None Include="CommandLineTests\call-license-client.cmd" />
     <None Include="packages.config" />
   </ItemGroup>
