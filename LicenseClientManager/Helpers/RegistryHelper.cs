@@ -7,10 +7,16 @@ namespace LicenseClientManager.Helpers
         public static string GetActivationKeyFromRegistryIfPresent()
         {
             RegistryKey pdfPrinterEntry = Registry.CurrentUser.OpenSubKey("Software\\Bullzip\\PDF Printer", false);
-            var ActivationKey = pdfPrinterEntry.GetValue("ActivationKey");
-            pdfPrinterEntry.Close();
-
-            return ActivationKey?.ToString().ToLower();
+            if (pdfPrinterEntry != null)
+            {
+                var ActivationKey = pdfPrinterEntry.GetValue("ActivationKey");
+                pdfPrinterEntry.Close();
+                return ActivationKey?.ToString().ToLower();
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

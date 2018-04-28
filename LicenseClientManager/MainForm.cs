@@ -134,69 +134,13 @@ namespace LicenseClientManager
         {
             if (ValidActivationCode())
             {
-                offlineActivationKeyTextbox.Text = GetActivationKey();
+                offlineActivationKeyTextbox.Text = WebHelper.GetActivationKey(activationKeyTextbox.Text, argumentDictionary["machinename"], argumentDictionary["version"]);
                 licenseActivationTabControl.SelectedTab = licenseActivationOfflineTab;
             }
             else
             {
                 licenseActivationTabControl.SelectedTab = licenseActivationOnlineTab;
             }
-        }
-
-        private string GetActivationKey()
-        {
-            string machineName = "";
-            string version = "";
-            string keyHeader = "--pdf-printer-activation-key-begin--";
-            string keyFooter = "--pdf-printer-activation-key-end--";
-            string base64Key = "";
-            string filler = "{35A7F82B-7DB4-48B7-AC57-A28CB4C5BDFD}{CB5306EF-9FB1-4F85-8037-EDDB3B6AEDFA}{AA03A518-E19F-4DE8-AEF7-6D04E4A909A3}";
-            try
-            {
-                string activationCode = activationKeyTextbox.Text;
-                machineName = argumentDictionary["machinename"];
-                version = argumentDictionary["version"];
-                keyHeader = "--pdf-printer-activation-key-begin--";
-                keyFooter = "--pdf-printer-activation-key-end--";
-                base64Key = GetBase64Key(activationCode, machineName, version, filler);
-
-                //--pdf-printer-activation-key-begin--
-                //"Q+Dn9hnyntzCnrWfWZekzQzrpeb7z7iJWZekscufWZfA8g/jWev9ARC8W7zT"
-                //"v+7nq+bx9s2fr9z2BBTup7SmwuKtaZmkwOmMQ5ekscu7aNjw/Rr2d4SOscuf"
-                //"WbPzAw/kq8Dy9xqfndj49uihbKa5wN2vaqumsR70m7z8ARTxnurFBeihbKa5"
-                //"wN2vaq6msSHkq+rtABm8W6mmsdq9RoGkscufdert+Bngrez29unDn6fKAfzP"
-                //"jM3s5gHIkuPM1g3Aa6bVzui7aOrt+Bngrez29umMQ7Oz/RTinuX39umMQ3Xj"
-                //"7fQQ7azcwp61n1mXpM0X6Jzc8gQQyJ21ucrjsnGvusndsHWm8PoO5Kfq6doP"
-                //"vUaBpLHLn3Xj7fQQ7azc6c/nrqU="
-                //--pdf-printer-activation-key-end--
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return keyHeader + Environment.NewLine + base64Key + keyFooter;
-        }
-
-        private string GetBase64Key(string activationCode, string machineName, string version, string filler)
-        {
-            string base64Key = WebHelper.Base64Encode($"{activationCode};{machineName};{version};{filler}");
-            string base64KeyFormatted = FormatKeyString(base64Key, 60);
-            return base64KeyFormatted;
-        }
-
-        private string FormatKeyString(string base64Key, int chunkSize)
-        {
-            IEnumerable<string> chunks = Enumerable.Range(0, base64Key.Length / chunkSize)
-                    .Select(i => base64Key.Substring(i * chunkSize, chunkSize));
-
-            string formattedKey = "";
-            foreach (string item in chunks)
-            {
-                formattedKey += item + Environment.NewLine;
-            }
-
-            return formattedKey;
         }
 
         private bool ValidActivationCode()
@@ -244,7 +188,7 @@ namespace LicenseClientManager
             {
                 Enabled = false;
                 Cursor = Cursors.WaitCursor;
-                string result = WebHelper.PostData(activationKeyTextbox.Text, argumentDictionary["activationurl"]);
+                string result = WebHelper.PostData(activationKeyTextbox.Text, argumentDictionary["version"], argumentDictionary["machinename"], argumentDictionary["activationurl"]);
                 Cursor = Cursors.Default;
 
                 if (result.Contains("Thank you"))
