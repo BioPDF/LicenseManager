@@ -36,9 +36,9 @@ namespace WebApplication1.Controllers
             string keyHeader = "--pdf-printer-activation-key-begin--";
             string keyFooter = "--pdf-printer-activation-key-end--";
 
-            string decodedValue = Base64Decode(value);
+            string decodedValue = WebHelper.Base64Decode(value);
             decodedValue = decodedValue.Replace(keyHeader, "").Replace(keyFooter, "").Replace("\r", "").Replace("\n", "");
-            decodedValue = Base64Decode(decodedValue);
+            decodedValue = WebHelper.Base64Decode(decodedValue);
             string[] parms = decodedValue.Split(';');
 
             string activationCode = parms[0];
@@ -73,16 +73,5 @@ namespace WebApplication1.Controllers
         {
         }
 
-        public static string Base64Encode(string plainText)
-        {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-            return System.Convert.ToBase64String(plainTextBytes);
-        }
-
-        public static string Base64Decode(string base64EncodedData)
-        {
-            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-        }
     }
 }
