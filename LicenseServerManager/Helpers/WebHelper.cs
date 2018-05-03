@@ -17,14 +17,14 @@ namespace LicenseServerManager.Helpers
                 string apiKey = "adf98da6fgd8a98fd7gads8fw";
                 string urlString = $"http://www.biopdf.com/api/licensemanager/endpoint.php";
 
-                //JObject obj = new JObject(
-                //    new JProperty("activationkey", activationKey),
-                //    new JProperty("machinename", machineName),
-                //    new JProperty("version", version)
-                //);
-                //string encodedData = Base64Encode(obj.ToString());
+                JObject obj = new JObject(
+                    new JProperty("activationkey", activationKey),
+                    new JProperty("machine", machineName),
+                    new JProperty("version", version)
+                );
+                string encodedData = Base64Encode(obj.ToString());
 
-                string encodedData = Base64Encode($"activationkey={activationKey}&machinename={machineName}&version={version}");
+                //string encodedData = Base64Encode($"activationkey={activationKey}&machinename={machineName}&version={version}");
 
                 RestClient client = new RestClient(urlString);
 
