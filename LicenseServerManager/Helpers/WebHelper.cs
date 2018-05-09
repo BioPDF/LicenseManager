@@ -24,16 +24,9 @@ namespace LicenseServerManager.Helpers
                 );
                 string encodedData = Base64Encode(obj.ToString());
 
-                //string encodedData = Base64Encode($"activationkey={activationKey}&machinename={machineName}&version={version}");
-
                 RestClient client = new RestClient(urlString);
 
                 var request = new RestRequest(Method.POST);
-                //request.Resource = "api/values?value=" + encodedData;
-
-                //request.AddParameter("fn", "activate", ParameterType.HttpHeader);
-                //request.AddParameter("apikey", apiKey, ParameterType.HttpHeader);
-                //request.AddParameter("data", encodedData, ParameterType.HttpHeader);
 
                 request.AddParameter("application/x-www-form-urlencoded", $"fn=activate&apikey={apiKey}&data={encodedData}", ParameterType.RequestBody);
 
