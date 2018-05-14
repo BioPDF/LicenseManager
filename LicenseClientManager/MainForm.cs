@@ -230,5 +230,12 @@ namespace LicenseClientManager
                 MessageBox.Show("The file has been saved", "Save License Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void offlineActivateResponseNow_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText($"{argumentDictionary["licenselocation"]}\\licensedata.lic", activationResponseDataTextbox.Text);
+            MessageBox.Show("Thank you - your product has now been licensed", "Save License Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Application.Exit();
+        }
     }
 }
