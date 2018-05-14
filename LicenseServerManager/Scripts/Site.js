@@ -41,6 +41,7 @@
             data: data,
             success: function (value) {
                 $('#LicenseKey').val(value);
+                $('#LicenseKeyHelpText').removeClass('hidden');
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 BootstrapDialog.alert(XMLHttpRequest.responseText);

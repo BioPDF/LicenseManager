@@ -19,8 +19,8 @@ namespace LicenseServerManager.Helpers
 
                 JObject obj = new JObject(
                     new JProperty("activationkey", activationKey),
-                    new JProperty("machine", machineName),
-                    new JProperty("version", version)
+                    new JProperty("machine", machineName) //,
+                    //new JProperty("version", version)
                 );
                 string encodedData = Base64Encode(obj.ToString());
 
