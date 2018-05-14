@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Product Activation";
+}
+<h2>@ViewBag.Title</h2>
+
+<div style="margin: 0px 100px 100px 100px;">
+    @Html.Label("Paste the activation key into this field:")
+    @Html.TextArea("ActivationKey", new { @class = "form-control activationKey", @rows = "10" })
+
+    <p>
+        <button id="GetLicenseKey" name="GetLicenseKey" class="btn btn-primary">Get License Key</button>
+    </p>
+
+    @Html.Label("Result:")
+    @Html.TextArea("LicenseKey", new { @class = "form-control licenseKey", @rows = "10" })
+
+</div>

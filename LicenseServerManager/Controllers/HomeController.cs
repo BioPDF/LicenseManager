@@ -20,6 +20,13 @@ namespace LicenseServerManager.Controllers
             return View();
         }
 
+        public ActionResult Activation()
+        {
+            ViewBag.Message = "Activation.";
+
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -11,8 +11,6 @@
     <div style="overflow-y: scroll; border: inset; border-bottom-width: thin; border-color: lightgray; max-height: 400px">
         @Html.Raw(terms)
     </div>
-    @Html.CheckBox("Accept the Terms and Conditions") Accept the Terms and Conditions
-    <p>
-        <a class="btn btn-primary pull-right" href="#">Continue &raquo;</a>
-    </p>
+    @Html.CheckBox("AcceptTermsCheckbox") Accept the Terms and Conditions
+    <button id="AcceptTermsButton" name="AcceptTermsButton" class="btn btn-primary pull-right">Continue &raquo;</button>
 </div>
