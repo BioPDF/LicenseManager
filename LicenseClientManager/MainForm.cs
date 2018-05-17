@@ -27,16 +27,6 @@ namespace LicenseClientManager
             titelLabel.Text = argumentDictionary["programname"];
             Text = argumentDictionary["programname"];
             webSiteUrl.Text = argumentDictionary["activationurl"];
-
-            try
-            {
-                Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, $"{Application.ProductName} - Error occurred (process)", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            //argumentDictionary = null;
         }
 
         private void ValidateArguments()
@@ -57,19 +47,31 @@ namespace LicenseClientManager
                 Environment.Exit((int)ExitCode.InvalidParameters);
             }
 
+            if ((argumentDictionary.ContainsKey("mode") && argumentDictionary["mode"] == "silent") && !argumentDictionary.ContainsKey("activationkey"))
+            {
+                MessageBox.Show("Activation key missing for silent activation.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit((int)ExitCode.InvalidParameters);
+            }
+
             argumentDictionary.Add("machinename", Environment.MachineName);
         }
 
-        internal void Open()
+        internal void Open(bool showDialog)
         {
-            if (WindowState == FormWindowState.Minimized || Visible == false)
+            if (showDialog)
             {
                 Visible = true;
                 WindowState = FormWindowState.Normal;
+                ShowInTaskbar = true;
                 this.TopMost = true;
                 this.TopMost = false;
                 this.Focus();
             }
+            else
+            {
+                Visible = false;
+            }
+            Opacity = showDialog ? 100 : 0;
         }
 
         private void nextButton_Click(object sender, EventArgs e)
@@ -121,17 +123,28 @@ namespace LicenseClientManager
         {
             ProcessArguments(Environment.GetCommandLineArgs());
 
+            bool showDialog = true;
+
+            if (argumentDictionary.ContainsKey("mode"))
+                showDialog = argumentDictionary["mode"] == "dialog";
+
+            Open(showDialog);
+
             string rtf = Resources.terms_and_conditions_template;
             termsConditionsBox.Rtf = rtf;
-
-            activationKeyTextbox.Text = RegistryHelper.GetActivationKeyFromRegistryIfPresent();
+            activationKeyTextbox.Text = argumentDictionary.ContainsKey("activationkey") ? argumentDictionary["activationkey"] : ""; // RegistryHelper.GetActivationKeyFromRegistryIfPresent();
             activationKeyTextbox.Enabled = string.IsNullOrEmpty(activationKeyTextbox.Text);
             licenseActivationOfflineTab.Enabled = string.IsNullOrEmpty(activationKeyTextbox.Text);
+
+            if (showDialog == false)
+            {
+                OnlineActivate(showDialog);
+            }
         }
 
         private void offlineActivationButton_Click(object sender, EventArgs e)
         {
-            if (ValidActivationCode())
+            if (ValidActivationKey())
             {
                 offlineActivationKeyTextbox.Text = WebHelper.GetActivationKey(activationKeyTextbox.Text, argumentDictionary["machinename"], argumentDictionary["version"]);
                 licenseActivationTabControl.SelectedTab = licenseActivationOfflineTab;
@@ -142,11 +155,11 @@ namespace LicenseClientManager
             }
         }
 
-        private bool ValidActivationCode()
+        private bool ValidActivationKey()
         {
             if (string.IsNullOrEmpty(activationKeyTextbox.Text))
             {
-                MessageBox.Show("Enter a valid activation code", "Activation Code Required", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Enter a valid activation key", "Activation Key Required", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 activationKeyTextbox.Focus();
                 return false;
             }
@@ -162,26 +175,19 @@ namespace LicenseClientManager
         {
             if (e.TabPage == licenseActivationOfflineTab)
             {
-                if (!ValidActivationCode())
+                if (!ValidActivationKey())
                 {
                     licenseActivationTabControl.SelectedTab = licenseActivationOnlineTab;
                 }
             }
         }
 
-        //public static string Base64Encode(string plainText)
-        //{
-        //    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-        //    return System.Convert.ToBase64String(plainTextBytes);
-        //}
-
-        //public static string Base64Decode(string base64EncodedData)
-        //{
-        //    var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-        //    return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-        //}
-
         private void onlineActivationButton_Click(object sender, EventArgs e)
+        {
+            OnlineActivate(true);
+        }
+
+        private void OnlineActivate(bool showDialog)
         {
             try
             {
@@ -193,22 +199,52 @@ namespace LicenseClientManager
                 if (result.Key == HttpStatusCode.OK)
                 {
 
-                    File.WriteAllText($"{argumentDictionary["licenselocation"]}\\licensedata.lic", result.Value);
+                    File.WriteAllText(argumentDictionary["licensefile"], result.Value);
 
-                    MessageBox.Show("Thank you - your product has now been licensed", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (showDialog)
+                    {
+                        MessageBox.Show("Thank you, your product has now been licensed", "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        if (argumentDictionary.ContainsKey("statusfile"))
+                        {
+                            File.WriteAllText(argumentDictionary["statusfile"], $"{(int)result.Key}{Environment.NewLine}the product has now been licensed");
+                        }
+                    }
                     Application.Exit();
                 }
                 else
                 {
-                    MessageBox.Show(result.Value, "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    if (showDialog)
+                    {
+                        MessageBox.Show(result.Value, "Post Data Result", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                    else
+                    {
+                        if (argumentDictionary.ContainsKey("statusfile")) {
+                            File.WriteAllText(argumentDictionary["statusfile"], $"{(int)result.Key}{Environment.NewLine}{result.Value}");
+                        }
+                        Application.Exit();
+                    }
                 }
                 Enabled = true;
             }
             catch (Exception ex)
             {
                 Cursor = Cursors.Default;
-                MessageBox.Show(ex.Message, "Error occurred", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Enabled = true;
+                if (showDialog)
+                {
+                    MessageBox.Show(ex.Message, "Error occurred", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (argumentDictionary.ContainsKey("statusfile")) {
+                        File.WriteAllText(argumentDictionary["statusfile"], $"9999{Environment.NewLine}{ex.Message}");
+                    }
+                    Application.Exit();
+                }
             }
         }
 
@@ -220,8 +256,8 @@ namespace LicenseClientManager
         private void offlineSaveToFileButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "License info|*.lic";
-            saveFileDialog.Title = "Save License Information";
+            saveFileDialog.Filter = "Activation Key info|*.inf";
+            saveFileDialog.Title = "Save Activation Key Information";
             saveFileDialog.ShowDialog();
 
             if (saveFileDialog.FileName != "")
@@ -233,7 +269,7 @@ namespace LicenseClientManager
 
         private void offlineActivateResponseNow_Click(object sender, EventArgs e)
         {
-            File.WriteAllText($"{argumentDictionary["licenselocation"]}\\licensedata.lic", activationResponseDataTextbox.Text);
+            File.WriteAllText($"{argumentDictionary["licensefile"]}", activationResponseDataTextbox.Text);
             MessageBox.Show("Thank you - your product has now been licensed", "Save License Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Application.Exit();
         }

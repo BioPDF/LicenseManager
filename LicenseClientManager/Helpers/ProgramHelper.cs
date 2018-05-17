@@ -112,8 +112,7 @@ namespace LicenseClientManager.Helpers
                 }
                 else
                 {
-                    //key = argument.Substring(0, argument.IndexOf(' '));
-                    value = argument; //.Substring(argument.IndexOf(' ') + 1);
+                    value = argument;
                     value = value.Trim();
                     value = value.Trim(new char[] { '\r', '\n' });
                     value = value.Trim(new char[] { '\"', '\"' });

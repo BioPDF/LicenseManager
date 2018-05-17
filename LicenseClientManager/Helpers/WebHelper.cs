@@ -59,13 +59,13 @@ namespace LicenseClientManager.Helpers
             return decodedData;
         }
 
-        static string GetData(string activationCode, string version, string machineName)
+        static string GetData(string activationKey, string version, string machineName)
         {
             Dictionary<string, string> ClientData = new Dictionary<string, string>
             {
-                {"ActivationCode", activationCode},
-                {"MachineName", machineName},
-                {"Version", version}
+                {"activationkey", activationKey},
+                {"machine", machineName},
+                {"version", version}
             };
 
             var result = Newtonsoft.Json.JsonConvert.SerializeObject(ClientData);
@@ -84,7 +84,7 @@ namespace LicenseClientManager.Helpers
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
-        public static string GetActivationKey(string activationCode, string machineName, string version)
+        public static string GetActivationKey(string activationKey, string machineName, string version)
         {
             string keyHeader = "--pdf-printer-activation-key-begin--";
             string keyFooter = "--pdf-printer-activation-key-end--";
@@ -94,7 +94,7 @@ namespace LicenseClientManager.Helpers
             {
                 keyHeader = "--pdf-printer-activation-key-begin--";
                 keyFooter = "--pdf-printer-activation-key-end--";
-                base64Key = GetBase64Key(activationCode, machineName, version, filler);
+                base64Key = GetBase64Key(activationKey, machineName, version, filler);
 
                 //--pdf-printer-activation-key-begin--
                 //"Q+Dn9hnyntzCnrWfWZekzQzrpeb7z7iJWZekscufWZfA8g/jWev9ARC8W7zT"
@@ -114,9 +114,9 @@ namespace LicenseClientManager.Helpers
             return keyHeader + Environment.NewLine + base64Key + keyFooter;
         }
 
-        private static string GetBase64Key(string activationCode, string machineName, string version, string filler)
+        private static string GetBase64Key(string activationKey, string machineName, string version, string filler)
         {
-            string base64Key = WebHelper.Base64Encode($"{activationCode};{machineName};{version};{filler}");
+            string base64Key = WebHelper.Base64Encode($"{activationKey};{machineName};{version};{filler}");
             string base64KeyFormatted = FormatKeyString(base64Key, 60);
             return base64KeyFormatted;
         }

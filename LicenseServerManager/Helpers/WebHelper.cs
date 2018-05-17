@@ -19,8 +19,8 @@ namespace LicenseServerManager.Helpers
 
                 JObject obj = new JObject(
                     new JProperty("activationkey", activationKey),
-                    new JProperty("machine", machineName) //,
-                    //new JProperty("version", version)
+                    new JProperty("machine", machineName),
+                    new JProperty("version", version)
                 );
                 string encodedData = Base64Encode(obj.ToString());
 
@@ -36,24 +36,11 @@ namespace LicenseServerManager.Helpers
 
                 KeyValuePair<HttpStatusCode, string> result = new KeyValuePair<HttpStatusCode, string>(response.StatusCode, response.Content.ToString());
                 return result;
-                //if (response.StatusCode == HttpStatusCode.OK)
-                //{
-                //    // OK
-                //    string result = response.Content.ToString();
-                //    string decodedResult = result; // Base64Decode(result.Replace("\"", ""));
-                //    return decodedResult;
-                //}
-                //else
-                //{
-                //    // Not OK
-                //    return "response not ok";
-                //}
             }
             catch (Exception ex)
             {
                 return new KeyValuePair<HttpStatusCode, string>(HttpStatusCode.ServiceUnavailable, "The validation failed. Please contact us for help"); ;
             }
-
         }
 
         public static string Base64Encode(string plainText)
@@ -67,6 +54,5 @@ namespace LicenseServerManager.Helpers
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
-
     }
 }
