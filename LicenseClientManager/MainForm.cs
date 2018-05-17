@@ -199,7 +199,7 @@ namespace LicenseClientManager
                 if (result.Key == HttpStatusCode.OK)
                 {
 
-                    File.WriteAllText(argumentDictionary["licensefile"], result.Value);
+                    File.WriteAllText(argumentDictionary["licensefile"], WebHelper.Base64Decode(result.Value.Replace("\"", "")));
 
                     if (showDialog)
                     {
